@@ -1,0 +1,51 @@
+Missão Semana 2 Curso Java mais Banco de Dados
+
+Construa os seguintes comandos SQL
+
+1. Criar um select para obter o Nome, Sobrenome, Salário e Departamento do funcionário, ordenado pelo maior salário.
+R: SELECT first_name as 'First Name', last_name as 'Last Name', salary as 'Salary', departement as 'Department' FROM `employee` order by salary DESC
+
+2. Criar um select para obter todos os departamentos, de forma que eles não se repitam no retorno do select.
+R: SELECT departement as Departments FROM `employee` group by Departement
+
+3. Criar um select para imprimir a média dos salários.
+R: SELECT avg(salary) as 'Average Salary' FROM employee
+
+4. Criar um select para retornar o nome, sobrenome e salário dos funcionários que possuem salários ACIMA da média.
+R: SELECT first_name as 'First Name', last_name as 'Last Name', salary as 'Salary > Average' FROM `employee` 
+    where salary > (SELECT AVG(salary) FROM `employee`)  
+
+
+
+Abaixo o script e rascunho da resolução da missão da semana.
+
+
+/* Créer la table Employee */
+CREATE TABLE Employee (
+    Employee_id int AUTO_INCREMENT PRIMARY KEY,
+    First_name VARCHAR(50),
+	Last_name VARCHAR(50),
+	Salary int,
+	Joining_date Date,
+    Departement  VARCHAR(50) 
+);
+
+
+/* Insérer des lignes dans la table Employee */
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (1, 'Bob', 'Kinto', 5000, "2019-01-20", "Finance");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (2, 'Jerry', 'Kansxo', 8500, "2019-01-15", "IT");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (3, 'Philip', 'Jose', 6000, "2019-02-05", "Banking");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (4, 'John', 'Abraham', 5000, "2019-02-25", "Insurance");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (5, 'Michael', 'Mathew', 4500, "2019-02-28", "Finance");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (6, 'Alex', 'chreketo', 7000, "2019-05-10", "IT");
+INSERT INTO Employee (Employee_id, First_name, Last_name, Salary, Joining_date, Departement) VALUES (7, 'Yohan', 'Soso', 4000, "2019-06-20", "Banking");
+
+
+1. SELECT first_name, last_name, salary, departement FROM `employee` order by salary DESC
+
+2. SELECT departement as Departements FROM `employee` group by Departement
+
+3. SELECT avg(salary) as 'Average Salary' FROM employee
+
+4. SELECT first_name as 'First Name', last_name as 'Last Name', salary as 'Salary > AVG' FROM `employee` 
+    where salary > (SELECT AVG(salary) FROM `employee`)  
