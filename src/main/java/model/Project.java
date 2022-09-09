@@ -4,7 +4,9 @@
  */
 package model;
 
-import java.sql.Date;
+import java.util.Date;
+
+
 
 /**
  *
@@ -25,9 +27,10 @@ public class Project {
         this.updatedAt = updatedAt;
     }
 
-    public Project() {
+    public Project(){
         //throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
+        this.createdAt = new Date();
     }
 
     public int getId() {
@@ -72,17 +75,20 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return this.name;
+        //return  "Project{" + "id=" + id + ", name=" + name + ", description=" 
+        //        + description + ", createdAt=" + createdAt + ", updatedAt=" 
+        //        + updatedAt + '}';
     }
 
-    public void setCreatedAt(int i) {
+    //public void setCreatedAt(int i) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void add(Project project) {
+    //public void add(Project project) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    //}
     
     
     
-}
+

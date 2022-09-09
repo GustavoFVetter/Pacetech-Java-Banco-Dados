@@ -1,12 +1,30 @@
-model/Task.java
- model.Task
+util/ConnectionFactory.java
+ util.ConnectionFactory
 controller/TaskController.java
  controller.TaskController
+model/Task.java
+ model.Task
+Main/Main.java
+ Main.Main
+view/TaskDialogScreen.java
+ view.TaskDialogScreen
+ view.TaskDialogScreen$1
+ view.TaskDialogScreen$2
+ view.TaskDialogScreen$2$1
 controller/ProjectController.java
  controller.ProjectController
 model/Project.java
  model.Project
-util/ConnectionFactory.java
- util.ConnectionFactory
-ToDoApp/Main.java
- ToDoApp.Main
+view/ProjectDialogScreen.java
+ view.ProjectDialogScreen
+ view.ProjectDialogScreen$1
+ view.ProjectDialogScreen$2
+ view.ProjectDialogScreen$3
+ view.ProjectDialogScreen$3$1
+view/MainScreen.java
+ view.MainScreen
+ view.MainScreen$1
+ view.MainScreen$2
+ view.MainScreen$3
+ view.MainScreen$4
+ view.MainScreen$5

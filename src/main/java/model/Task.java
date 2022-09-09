@@ -110,7 +110,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", notes=" + notes + ", isCompleted=" + isCompleted + ", deadLine=" + deadLine + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" 
+                + name + ", description=" + description + ", notes=" + notes 
+                + ", isCompleted=" + isCompleted + ", deadLine=" + deadLine 
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
     }
     
     
