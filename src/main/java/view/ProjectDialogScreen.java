@@ -11,13 +11,13 @@ import model.Project;
 
 /**
  *
- * @author Gustavo
+ * @author Gustavo F. Vetter
  */
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
     // Variável que gerencia o controle do acesso ao banco de dados
     ProjectController controller;
-    
+
     public ProjectDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -176,7 +176,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         //comando para fechar a tela "adicionar projeto"
         this.dispose();
 
-        
+
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**

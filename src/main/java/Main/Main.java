@@ -68,7 +68,7 @@ public class Main {
         //Teste de INSERT Task
         TaskController taskController = new TaskController();
         Task task = new Task();
-        task.setIdProject(3);
+        task.setIdProject(9);
         task.setName("Criar as telas da aplicacao");
         task.setDescription("Devem ser criadas telas para fazer os cadastros");
         task.setNotes("Sem comentarios");
@@ -80,15 +80,15 @@ public class Main {
         taskController.insert(task);
     
         
-        //Teste de UPDATE task
-        task.setId(4);
-        task.setName("4 Alterar telas de criacao");
-        System.out.println(task.toString());
-        taskController.update(task);
-        List<Task> tasks = taskController.getAll(3);
-        System.out.println("Total de tarefas: " + tasks.size());
-        //System.out.println("Lista de tarefas: " + tasks.);
-        //FUNCIONOU
+//        //Teste de UPDATE task
+//        task.setId(4);
+//        task.setName("4 Alterar telas de criacao");
+//        System.out.println(task.toString());
+//        taskController.update(task);
+//        List<Task> tasks = taskController.getAll(3);
+//        System.out.println("Total de tarefas: " + tasks.size());
+//        //System.out.println("Lista de tarefas: " + tasks.);
+//        //FUNCIONOU
         
     
     }

@@ -18,7 +18,7 @@ import model.Task;
  * @author Gustavo
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
-    
+
     // Criação da viariável controller
     TaskController controller;
     Project project;
@@ -188,6 +188,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             Date deadline = null;
             deadline = dateFormat.parse(jFormattedTextFielddeadline.getText());
             task.setDeadLine(deadline);
+            task.setUpdatedAt(new Date());
             controller.insert(task);
             JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
             
@@ -259,7 +260,5 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     public void setProject(Project project) {
         this.project = project;
     }
-
-
-
+    
 }
