@@ -18,7 +18,7 @@ import util.TaskTableModel;
 
 /**
  *
- * @author Gustavo
+ * @author Gustavo F. Vetter    
  */
 public class MainScreen extends javax.swing.JFrame {
 
