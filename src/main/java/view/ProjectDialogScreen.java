@@ -21,6 +21,10 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     public ProjectDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        // Comando para centralizar na tela do usuário a taskdialogscreen
+        setLocationRelativeTo(null);
+        // Para chamar o método de esconder as msg de campos obrigatórios
+        hideErrorField();
         controller = new ProjectController();
     }
 
@@ -38,10 +42,11 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         jLabelToolBarSave = new javax.swing.JLabel();
         jPanelProject = new javax.swing.JPanel();
         jLabelName = new javax.swing.JLabel();
-        jTextFieldName = new javax.swing.JTextField();
+        jTextFieldProjectName = new javax.swing.JTextField();
         jLabelDescription = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
+        jLabelNomeObrigatorio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 600));
@@ -86,10 +91,10 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         jLabelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelName.setText("Nome");
 
-        jTextFieldName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldName.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldProjectName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldProjectName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNameActionPerformed(evt);
+                jTextFieldProjectNameActionPerformed(evt);
             }
         });
 
@@ -101,17 +106,22 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         jTextAreaDescription.setRows(5);
         jScrollPane1.setViewportView(jTextAreaDescription);
 
+        jLabelNomeObrigatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabelNomeObrigatorio.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelNomeObrigatorio.setText("Campo NOME é obrigatório");
+
         javax.swing.GroupLayout jPanelProjectLayout = new javax.swing.GroupLayout(jPanelProject);
         jPanelProject.setLayout(jPanelProjectLayout);
         jPanelProjectLayout.setHorizontalGroup(
             jPanelProjectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProjectLayout.createSequentialGroup()
+            .addGroup(jPanelProjectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelProjectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addComponent(jLabelName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelProjectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(jLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldProjectName)
+                    .addComponent(jLabelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNomeObrigatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelProjectLayout.setVerticalGroup(
@@ -120,11 +130,13 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
                 .addGap(21, 21, 21)
                 .addComponent(jLabelName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jTextFieldProjectName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNomeObrigatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jLabelDescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -150,38 +162,55 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
+    private void jTextFieldProjectNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProjectNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNameActionPerformed
+    }//GEN-LAST:event_jTextFieldProjectNameActionPerformed
 
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
         try {
-            // TODO add your handling code here:
-            Project project = new Project();
-            //Vai pegar o texto que esta na textfield abaixo de name
-            project.setName(jTextFieldName.getText());
-            //Vai pegar o texto que esta em areadescription abaixo de description
-            project.setDescription(jTextAreaDescription.getText());
-            // Setar a data de atualização do projeto
-            project.setUpdatedAt(new Date());
-            //controller.insert é para salvar as informações colhidas na tela no banco de dados
-            //No tutorial o método é save, mas no meu é insert
-            controller.insert(project);
-            //Tela mostrada que o salvamento ocorreu com sucesso
-            JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso");
-        } catch (Exception e) {
+            
+            if (isFieldValid()) {
+                // Se o campo nome NÃO estiver em branco, faça...
+                if (!jTextFieldProjectName.getText().equals("")) {
+                    // TODO add your handling code here:
+                    Project project = new Project();
+                    //Vai pegar o texto que esta na textfield abaixo de name
+                    project.setName(jTextFieldProjectName.getText());
+                    //Vai pegar o texto que esta em areadescription abaixo de description
+                    project.setDescription(jTextAreaDescription.getText());
+                    // Setar a data de atualização do projeto
+                    project.setUpdatedAt(new Date());
+                    //controller.insert é para salvar as informações colhidas 
+                    // na tela no banco de dados
+                    //No tutorial o método é save, mas no meu é insert
+                    controller.insert(project);
+                    //Tela mostrada que o salvamento ocorreu com sucesso
+                    JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso");
+                    //comando para fechar a tela "adicionar projeto"
+                    this.dispose();
+                } 
+
+            } else {
+                    // Comando para esconder as msg de erro para somente depois
+                    // mostrar a(s) msg(s) onde de fato precisa ser mostrada
+                    hideErrorField();
+                    // Se o campo NOME estiver vazio
+                    if (jTextFieldProjectName.getText().isEmpty()) {
+                        // Mostre a msg de campo NOME obrigatório
+                        jLabelNomeObrigatorio.setVisible(true);
+
+                    }
+                }
+            
+        }catch (Exception e) {
             //caso ocorra algum erro, a msg de erro será mostrada ao usuário
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        //comando para fechar a tela "adicionar projeto"
-        this.dispose();
-
-
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -224,12 +253,32 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelNomeObrigatorio;
     private javax.swing.JLabel jLabelToolBarSave;
     private javax.swing.JLabel jLabelToolBarTitle;
     private javax.swing.JPanel jPanelProject;
     private javax.swing.JPanel jPanelToolBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaDescription;
-    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldProjectName;
     // End of variables declaration//GEN-END:variables
+
+// Método para dizer se os campos são válidos
+    public boolean isFieldValid() {
+        // Se os campos NOME e PRAZO não estiverem vazios
+        if (!jTextFieldProjectName.getText().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+        // Se o campo NOME não estiver vazio, retorna TRUE
+        // O return abaixo é o mesmo que o if/else acima
+        // return (!jTextFieldProjectName.getText().isEmpty());
+    }
+
+// Método para esconder os textos de campos obrigatórios
+    public void hideErrorField() {
+        // Deixa invisível o msg de campo obrigatório para NOME.
+        jLabelNomeObrigatorio.setVisible(false);
+    }
 }

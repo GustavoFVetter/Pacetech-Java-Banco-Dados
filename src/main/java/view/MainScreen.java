@@ -10,10 +10,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import model.Project;
 import model.Task;
+import util.ButtonColumnCellRenderer;
+import util.DeadlineColumnCellRenderer;
 import util.TaskTableModel;
 
 /**
@@ -29,9 +34,14 @@ public class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-        decorateTableTask();
+        
         initDataController();
+        // Comando para centralizar na tela do usuário a taskdialogscreen
+        setLocationRelativeTo(null);
         initComponentsModel();
+        // A "decoração" da tela só pode ser feita depois de carregar os dados,
+        // para assumir a nova forma de "decorar" a tabela
+        decorateTableTask();
     }
 
     /**
@@ -342,7 +352,7 @@ public class MainScreen extends javax.swing.JFrame {
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
         // 
         int projectIndex = jListProjects.getSelectedIndex();
-        Project project = (Project) projectsModel.get(projectIndex);
+        Project project = (Project) projectsModel.getElementAt(projectIndex);
         taskDialogScreen.setProject(project);
 
         //Mostrar a tela criada para o usuário
@@ -357,6 +367,7 @@ public class MainScreen extends javax.swing.JFrame {
                 // da posição da lista de projetos que estava selecionada
                 // e converte o Object em Project
                 Project project = (Project) projectsModel.get(projectIndex);
+                
                 // Vai carregar as tarefas com base no projeto selecionado 
                 loadTasks(project.getId());
             }
@@ -377,6 +388,35 @@ public class MainScreen extends javax.swing.JFrame {
                 // Comando que chama o taskController e atualiza a informação
                 taskController.update(task);
                 break;
+                
+            case 4:
+                TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, 
+                        rootPaneCheckingEnabled);
+                taskDialogScreen.setIsInsert(false);
+            
+                try {
+                    taskDialogScreen.setTask(task);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+                taskDialogScreen.setVisible(true);
+                taskDialogScreen.addWindowListener(new WindowAdapter() {
+            // Quando a janela for fechada...
+            public void windowClosed(WindowEvent e) {
+                // pegue o indice do projeto selecionado
+                int projectIndex = jListProjects.getSelectedIndex();
+                // Comando para buscar o object Project da projectModel 
+                // da posição da lista de projetos que estava selecionada
+                // e converte o Object em Project
+                Project project = (Project) projectsModel.get(projectIndex);
+                
+                // Vai carregar as tarefas com base no projeto selecionado 
+                loadTasks(project.getId());
+            }
+            });
+                break; 
+                
 
             case 5:
                 // Caso o local clicado seja para remover uma tarefa, 
@@ -470,8 +510,21 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         //Configura o foreground da fonte do Header de colunas
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
+        // Comando para não usar o renderizador padrão e usar o 
+        // novo renderizador sobrescrito para campo data
+        jTableTasks.getColumnModel().getColumn(2)
+                .setCellRenderer(new DeadlineColumnCellRenderer());
+        // Comando para não usar o renderizador padrão e usar o 
+        // novo renderizador sobrescrito para campo Editar
+        jTableTasks.getColumnModel().getColumn(4)
+                .setCellRenderer(new ButtonColumnCellRenderer("pencil"));
+        // Comando para não usar o renderizador padrão e usar o 
+        // novo renderizador sobrescrito para campo Excluir
+        jTableTasks.getColumnModel().getColumn(5)
+                .setCellRenderer(new ButtonColumnCellRenderer("close")); 
+        
         //Cria um ícone no Header para ordenar o conteúdo das colunas
-        jTableTasks.setAutoCreateRowSorter(true);
+        //jTableTasks.setAutoCreateRowSorter(true);
     }
 
     public void initDataController() {

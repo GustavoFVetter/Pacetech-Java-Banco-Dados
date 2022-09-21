@@ -4,6 +4,18 @@ model/Project.java
  model.Project
 controller/ProjectController.java
  controller.ProjectController
+util/DeadlineColumnCellRenderer.java
+ util.DeadlineColumnCellRenderer
+util/ButtonColumnCellRenderer.java
+ util.ButtonColumnCellRenderer
+util/TaskTableModel.java
+ util.TaskTableModel
+model/Task.java
+ model.Task
+controller/TaskController.java
+ controller.TaskController
+Main/Main.java
+ Main.Main
 view/TaskDialogScreen.java
  view.TaskDialogScreen
  view.TaskDialogScreen$1
@@ -25,11 +37,4 @@ view/MainScreen.java
  view.MainScreen$6
  view.MainScreen$7
  view.MainScreen$8
-model/Task.java
- model.Task
-controller/TaskController.java
- controller.TaskController
-Main/Main.java
- Main.Main
-util/TaskTableModel.java
- util.TaskTableModel
+ view.MainScreen$9

@@ -118,6 +118,8 @@
                       <Component id="jLabeldeadline" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabelNotes" alignment="0" max="32767" attributes="0"/>
                       <Component id="jFormattedTextFielddeadline" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelCampoNomeObrigatorio" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelCampoPrazoObrigatorio" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -130,18 +132,22 @@
                   <Component id="jLabelName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTextFieldName" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelCampoNomeObrigatorio" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPaneDescription" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="jScrollPaneDescription" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabeldeadline" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jFormattedTextFielddeadline" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelCampoPrazoObrigatorio" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
                   <Component id="jLabelNotes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPaneNotes" pref="239" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneNotes" min="-2" pref="208" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -228,6 +234,28 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCampoNomeObrigatorio">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Campo NOME &#xe9; obrigat&#xf3;rio."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCampoPrazoObrigatorio">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Campo PRAZO &#xe9; obrigat&#xf3;rio."/>
           </Properties>
         </Component>
       </SubComponents>

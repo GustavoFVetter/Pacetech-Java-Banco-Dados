@@ -6,6 +6,7 @@ package view;
 
 import controller.TaskController;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -22,10 +23,22 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     // Criação da viariável controller
     TaskController controller;
     Project project;
+    Task task;
+    // Criando a variável auxiliar para analisar se é insert ou update
+    boolean isInsert = true;
+    
+    public void setIsInsert (boolean isInsert){
+        this.isInsert = isInsert;
+    }
     
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        // Método para inicializar os componentes da tela
         initComponents();
+        // Comando para centralizar na tela do usuário a taskdialogscreen
+        setLocationRelativeTo(null);
+        // Para chamar o método de esconder as msg de campos obrigatórios
+        hideErrorField();
         // Instanciar a variável
         controller = new TaskController();
         
@@ -54,6 +67,8 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         jScrollPaneNotes = new javax.swing.JScrollPane();
         jTextAreaNotes = new javax.swing.JTextArea();
         jFormattedTextFielddeadline = new javax.swing.JFormattedTextField();
+        jLabelCampoNomeObrigatorio = new javax.swing.JLabel();
+        jLabelCampoPrazoObrigatorio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 800));
@@ -118,6 +133,14 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
         jFormattedTextFielddeadline.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
+        jLabelCampoNomeObrigatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabelCampoNomeObrigatorio.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelCampoNomeObrigatorio.setText("Campo NOME é obrigatório.");
+
+        jLabelCampoPrazoObrigatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabelCampoPrazoObrigatorio.setForeground(new java.awt.Color(204, 0, 0));
+        jLabelCampoPrazoObrigatorio.setText("Campo PRAZO é obrigatório.");
+
         javax.swing.GroupLayout jPanelTaskLayout = new javax.swing.GroupLayout(jPanelTask);
         jPanelTask.setLayout(jPanelTaskLayout);
         jPanelTaskLayout.setHorizontalGroup(
@@ -132,7 +155,9 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                     .addComponent(jLabelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabeldeadline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextFielddeadline))
+                    .addComponent(jFormattedTextFielddeadline)
+                    .addComponent(jLabelCampoNomeObrigatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelCampoPrazoObrigatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelTaskLayout.setVerticalGroup(
@@ -142,18 +167,22 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 .addComponent(jLabelName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCampoNomeObrigatorio)
+                .addGap(19, 19, 19)
                 .addComponent(jLabelDescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabeldeadline)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFormattedTextFielddeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCampoPrazoObrigatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jLabelNotes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneNotes, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addComponent(jScrollPaneNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -178,24 +207,60 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
         // TODO add your handling code here:
         try {
-            Task task = new Task();
-            task.setIdProject(project.getId());
-            task.setName(jTextFieldName.getText());
-            task.setDescription(jTextAreaDescription.getText());
-            task.setNotes(jTextAreaNotes.getText());
-            task.setIsCompleted(false);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date deadline = null;
-            deadline = dateFormat.parse(jFormattedTextFielddeadline.getText());
-            task.setDeadLine(deadline);
-            task.setUpdatedAt(new Date());
-            controller.insert(task);
-            JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+            // Se os campos forem válidos, faça...
+            if(areFieldsValid()){
+                // Se for inserção de dados
+                if (isInsert) {
+                    Task task = new Task();
+                    task.setIdProject(project.getId());
+                    task.setName(jTextFieldName.getText());
+                    task.setDescription(jTextAreaDescription.getText());
+                    task.setNotes(jTextAreaNotes.getText());
+                    task.setIsCompleted(false);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date deadline = null;
+                    deadline = dateFormat.parse(jFormattedTextFielddeadline.getText());
+                    task.setDeadLine(deadline);
+                    task.setUpdatedAt(new Date());
+                    controller.insert(task);
+                    JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
+            } else {
+//                task.setId_project(project.getId());
+                task.setName(jTextFieldName.getText());
+                task.setDescription(jTextAreaDescription.getText());
+                task.setNotes(jTextAreaNotes.getText());
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date deadline;
+                deadline = dateFormat.parse(jFormattedTextFielddeadline.getText());
+                task.setDeadLine(deadline);
+
+                task.setUpdatedAt(new Date());
+
+                controller.update(task);
+                JOptionPane.showMessageDialog(rootPane, "Tarefa alterada com sucesso");
+                }
+               this.dispose();
+            } else {
+                // Comando para esconder as msg de erro para somente depois
+                // mostrar a(s) msg(s) onde de fato precisa ser mostrada
+                hideErrorField();
+                // Se o campo NOME estiver vazio
+                if (jTextFieldName.getText().isEmpty()){
+                    // Mostre a msg de campo NOME obrigatório
+                    jLabelCampoNomeObrigatorio.setVisible(true);
+                }
+                // Se o campo PRAZO estiver vazio
+                if (jFormattedTextFielddeadline.getText().isEmpty()){
+                    // Mostre a msg de campo PRAZO obrigatório
+                    jLabelCampoPrazoObrigatorio.setVisible(true);
+                }
+            }
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        this.dispose();
+        
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**
@@ -242,6 +307,8 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField jFormattedTextFielddeadline;
+    private javax.swing.JLabel jLabelCampoNomeObrigatorio;
+    private javax.swing.JLabel jLabelCampoPrazoObrigatorio;
     private javax.swing.JLabel jLabelDescription;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelNotes;
@@ -259,6 +326,45 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+    
+    // Método para esconder os textos de campos obrigatórios
+    public void hideErrorField (){
+        // Deixa invisível o msg de campo obrigatório para NOME.
+        jLabelCampoNomeObrigatorio.setVisible(false);
+        // Deixa invisível o msg de campo obrigatório para PRAZO.
+        jLabelCampoPrazoObrigatorio.setVisible(false);
+    }
+    
+    // Método para dizer se os campos são válidos
+    public boolean areFieldsValid(){
+        // Se os campos NOME e PRAZO não estiverem vazios
+        if ((!jTextFieldName.getText().isEmpty()) && 
+                (!jFormattedTextFielddeadline.getText().isEmpty())){
+                return true;
+        } else {
+                return false;
+                }
+        
+        // Se os campos NOME e PRAZO não estiverem vazios, retorna TRUE
+        // O return abaixo é o mesmo que o if/else acima
+        // return (!jTextFieldName.getText().isEmpty()) && 
+        //        (!jFormattedTextFielddeadline.getText().isEmpty());
+    }
+    
+    // Criando o método para buscar os valores dos campos e mostrar
+    // na tela para fazer alterações
+    public void setTask(Task task) throws ParseException {
+
+        if (!isInsert) {
+            this.task = task;
+            jTextFieldName.setText(task.getName());
+            jTextAreaDescription.setText(task.getDescription());
+            jTextAreaNotes.setText(task.getNotes());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            jFormattedTextFielddeadline.setText(dateFormat.format
+                (task.getDeadLine()));
+        }
     }
     
 }
